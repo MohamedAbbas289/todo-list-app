@@ -17,11 +17,7 @@ abstract class TaskDataBase : RoomDatabase() {
             if (instance == null) {
                 //initialize
                 instance =
-                    Room.databaseBuilder(
-                        context.applicationContext,
-                        TaskDataBase::class.java,
-                        "tasksDB"
-                    )
+                    Room.databaseBuilder(context, TaskDataBase::class.java, "tasksDB")
                         .allowMainThreadQueries()
                         .fallbackToDestructiveMigration()
                         .build()
