@@ -8,4 +8,5 @@
     <color name="transparent">#00FA0909</color>
     <color name="bottom_app_bar_color">#141922</color>
     <color name="app_bar_txt_color">#060E1E</color>
+    <color name="text_color">#FFFFFFFF</color>
 </resources>
