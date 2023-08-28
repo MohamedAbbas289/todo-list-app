@@ -39,7 +39,6 @@ class AddTaskFragment : BottomSheetDialogFragment() {
             dialog.setOnDateSetListener { datePicker, day, month, year ->
                 binding.date.text = "$year-${month + 1}-$day"
                 calendar.set(day, month, year)
-                //to ignore time
 
                 calendar.set(Calendar.SECOND, 0)
                 calendar.set(Calendar.MILLISECOND, 0)
