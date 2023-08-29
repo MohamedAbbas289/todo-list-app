@@ -5,11 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.model.Task
 import com.example.todolist.databinding.ItemTaskBinding
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
 
-class TasksAdapter(var tasks: List<Task>?) : RecyclerView.Adapter<TasksAdapter.ViewHolder>() {
+class TasksAdapter(var tasks: MutableList<Task>?) :
+    RecyclerView.Adapter<TasksAdapter.ViewHolder>() {
     class ViewHolder(val binding: ItemTaskBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -20,22 +18,43 @@ class TasksAdapter(var tasks: List<Task>?) : RecyclerView.Adapter<TasksAdapter.V
     override fun getItemCount(): Int = tasks?.size ?: 0
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val task: Task = tasks!![position]
+        var task: Task = tasks!![position]
         with(holder) {
             binding.title.text = task.name
-            binding.date.text = formatTime(task.dateTime!!)
+            binding.description.text = task.description
+            if (onItemDeleteListener != null) {
+                binding.swipeLayout.close(true)
+                binding.deleteView.setOnClickListener {
+                    onItemDeleteListener?.onItemClick(position, task)
+                }
+            }
+            if (onItemUpdatedListener != null) {
+                binding.dragItem.setOnClickListener {
+                    onItemUpdatedListener?.onItemClick(position, task)
+                }
+            }
         }
     }
 
-    fun formatTime(milliseconds: Long): String {
-        val sdf = SimpleDateFormat("h:mm a", Locale.getDefault())
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = milliseconds
-        return sdf.format(calendar.time)
-    }
 
-    fun bindTasks(tasks: List<Task>) {
+    fun bindTasks(tasks: MutableList<Task>) {
         this.tasks = tasks
         notifyDataSetChanged()
     }
+
+    fun taskDeleted(task: Task) {
+        val position = tasks?.indexOf(task)
+        tasks?.remove(task)
+        notifyItemRemoved(position!!)
+    }
+
+
+    var onItemDeleteListener: OnItemClickListener? = null
+    var onItemUpdatedListener: OnItemClickListener? = null
+
+    fun interface OnItemClickListener {
+        fun onItemClick(position: Int, task: Task)
+    }
+
+
 }

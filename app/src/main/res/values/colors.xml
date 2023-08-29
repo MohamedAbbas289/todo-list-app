@@ -9,4 +9,5 @@
     <color name="bottom_app_bar_color">#FFFFFF</color>
     <color name="app_bar_txt_color">#FFFFFF</color>
     <color name="text_color">#000000</color>
+    <color name="delete_ic_color">#ff5722</color>
 </resources>
