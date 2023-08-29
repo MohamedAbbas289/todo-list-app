@@ -3,6 +3,7 @@ package com.example.todoapp.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "tasks")
 data class Task(
@@ -17,4 +18,4 @@ data class Task(
     var dateTime: Long? = null,
     @ColumnInfo
     var isDone: Boolean = false
-)
+) : Serializable

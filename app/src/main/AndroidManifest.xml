@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TodoList"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ui.home.tabs.tasks_list.UpdateTaskActivity"
+            android:exported="false" />
         <activity
             android:name="com.example.todoapp.ui.home.HomeActivity"
             android:exported="false" />
