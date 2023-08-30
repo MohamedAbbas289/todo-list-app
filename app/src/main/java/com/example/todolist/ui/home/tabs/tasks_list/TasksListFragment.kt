@@ -64,6 +64,11 @@ class TasksListFragment : Fragment() {
             intent.putExtra(Constants.TASK_OBJECT, task)
             startActivity(intent)
         }
+        adapter.onButtonClickedListener = TasksAdapter.OnItemClickListener { position, task ->
+            doneTaskFromDatabase(task)
+            adapter.taskUpdated(task)
+        }
+
         binding.calendarView.setSelectedDate(CalendarDay.today())
         binding.calendarView.setOnDateChangedListener { widget, date, selected ->
             if (selected) {
@@ -75,6 +80,15 @@ class TasksListFragment : Fragment() {
             }
         }
     }
+
+
+    private fun doneTaskFromDatabase(task: Task) {
+        task.isDone = true
+        TaskDataBase.getInstance(requireContext())
+            .tasksDao()
+            .updateTask(task)
+    }
+
 
     private fun deleteTaskFromDatabase(task: Task) {
         TaskDataBase.getInstance(requireContext())

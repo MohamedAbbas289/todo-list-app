@@ -37,12 +37,21 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <ImageView
+        android:id="@+id/image_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:elevation="4dp"
+        android:src="@color/colorPrimary"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="30dp"
         android:background="@color/bottom_app_bar_color"
+        app:cardElevation="5dp"
         app:cardCornerRadius="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.7"
@@ -123,9 +132,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="50dp"
+                android:paddingVertical="15dp"
                 android:paddingHorizontal="50dp"
                 android:text="Save Changes"
+                android:textSize="18sp"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 app:cornerRadius="25sp" />
