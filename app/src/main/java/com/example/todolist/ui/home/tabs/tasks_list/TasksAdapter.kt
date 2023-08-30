@@ -1,5 +1,6 @@
 package com.example.todolist.ui.home.tabs.tasks_list
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +34,18 @@ class TasksAdapter(var tasks: MutableList<Task>?) :
                     onItemUpdatedListener?.onItemClick(position, task)
                 }
             }
+            if (onButtonClickedListener != null) {
+                binding.doneBtn.setOnClickListener {
+                    onButtonClickedListener?.onItemClick(position, task)
+                }
+            }
+            if (task.isDone) {
+                binding.title.setTextColor(Color.GREEN)
+                binding.doneBtn.setBackgroundColor(Color.GREEN)
+                binding.line.setBackgroundColor(Color.GREEN)
+            }
+
+
         }
     }
 
@@ -48,9 +61,16 @@ class TasksAdapter(var tasks: MutableList<Task>?) :
         notifyItemRemoved(position!!)
     }
 
+    fun taskUpdated(task: Task) {
+        val position = tasks?.indexOf(task)
+        tasks?.set(position!!, task)
+        notifyItemChanged(position!!)
+    }
+
 
     var onItemDeleteListener: OnItemClickListener? = null
     var onItemUpdatedListener: OnItemClickListener? = null
+    var onButtonClickedListener: OnItemClickListener? = null
 
     fun interface OnItemClickListener {
         fun onItemClick(position: Int, task: Task)
