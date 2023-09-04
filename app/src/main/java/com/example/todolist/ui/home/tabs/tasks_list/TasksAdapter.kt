@@ -1,7 +1,6 @@
 package com.example.todolist.ui.home.tabs.tasks_list
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -88,13 +87,6 @@ class TasksAdapter(var tasks: MutableList<Task>?) :
         val position = tasks?.indexOf(task)
         tasks?.set(position!!, task)
         notifyItemChanged(position!!)
-    }
-
-    private fun replaceView(oldV: View, newV: View) {
-        val par = oldV.parent as ViewGroup ?: return
-        val index = par.indexOfChild(oldV)
-        par.removeViewAt(index)
-        par.addView(newV, index)
     }
 
 
