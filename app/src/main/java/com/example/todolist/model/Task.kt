@@ -17,5 +17,6 @@ data class Task(
     @ColumnInfo
     var dateTime: Long? = null,
     @ColumnInfo
-    var isDone: Boolean = false
-) : Serializable
+    var isDone: Boolean = false,
+
+    ) : Serializable

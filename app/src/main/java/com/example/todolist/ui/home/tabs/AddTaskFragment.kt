@@ -78,7 +78,7 @@ class AddTaskFragment : BottomSheetDialogFragment() {
         val task = Task(
             name = binding.title.text.toString(),
             description = binding.description.text.toString(),
-            dateTime = calendar.timeInMillis
+            dateTime = calendar.timeInMillis,
         )
         TaskDataBase.getInstance(requireContext())
             .tasksDao()

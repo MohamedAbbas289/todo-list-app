@@ -10,4 +10,5 @@
     <color name="app_bar_txt_color">#060E1E</color>
     <color name="text_color">#FFFFFFFF</color>
     <color name="delete_ic_color">#ff5722</color>
+    <color name="is_done_color">#4CAF50</color>
 </resources>

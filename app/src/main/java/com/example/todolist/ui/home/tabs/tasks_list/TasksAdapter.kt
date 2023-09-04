@@ -1,11 +1,16 @@
 package com.example.todolist.ui.home.tabs.tasks_list
 
-import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.model.Task
+import com.example.todolist.R
+import com.example.todolist.R.color
 import com.example.todolist.databinding.ItemTaskBinding
+
 
 class TasksAdapter(var tasks: MutableList<Task>?) :
     RecyclerView.Adapter<TasksAdapter.ViewHolder>() {
@@ -23,6 +28,29 @@ class TasksAdapter(var tasks: MutableList<Task>?) :
         with(holder) {
             binding.title.text = task.name
             binding.description.text = task.description
+            if (task.isDone) {
+                binding.title.setTextColor(
+                    ContextCompat.getColor(itemView.context, color.is_done_color)
+                )
+                binding.line.setBackgroundColor(
+                    ContextCompat.getColor(itemView.context, color.is_done_color)
+                )
+                binding.doneBtn.isVisible = false
+                binding.isDoneTxt.isVisible = true
+            } else {
+                binding.title.setTextColor(
+                    ContextCompat.getColor(itemView.context, color.colorPrimary)
+                )
+                binding.doneBtn.setBackgroundDrawable(
+                    ContextCompat.getDrawable(holder.itemView.context, R.drawable.round_corner)
+                )
+                binding.line.setBackgroundColor(
+                    ContextCompat.getColor(itemView.context, color.colorPrimary)
+                )
+                binding.doneBtn.isVisible = true
+                binding.isDoneTxt.isVisible = false
+            }
+
             if (onItemDeleteListener != null) {
                 binding.swipeLayout.close(true)
                 binding.deleteView.setOnClickListener {
@@ -38,11 +66,6 @@ class TasksAdapter(var tasks: MutableList<Task>?) :
                 binding.doneBtn.setOnClickListener {
                     onButtonClickedListener?.onItemClick(position, task)
                 }
-            }
-            if (task.isDone) {
-                binding.title.setTextColor(Color.GREEN)
-                binding.doneBtn.setBackgroundColor(Color.GREEN)
-                binding.line.setBackgroundColor(Color.GREEN)
             }
 
 
@@ -65,6 +88,13 @@ class TasksAdapter(var tasks: MutableList<Task>?) :
         val position = tasks?.indexOf(task)
         tasks?.set(position!!, task)
         notifyItemChanged(position!!)
+    }
+
+    private fun replaceView(oldV: View, newV: View) {
+        val par = oldV.parent as ViewGroup ?: return
+        val index = par.indexOfChild(oldV)
+        par.removeViewAt(index)
+        par.addView(newV, index)
     }
 
 
